@@ -1,0 +1,10 @@
+DROP TABLE user_roles;
+CREATE TABLE user_roles (user_role_id int NOT NULL AUTO_INCREMENT, username varchar(45) NOT NULL, role varchar(45) NOT NULL, PRIMARY KEY (user_role_id), CONSTRAINT uni_username_role UNIQUE (role, username), INDEX fk_username_idx (username)) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO user_roles (user_role_id, username, role) VALUES (2, 'admin', 'ROLE_ADMIN');
+INSERT INTO user_roles (user_role_id, username, role) VALUES (3, 'william', 'ROLE_USER');
+INSERT INTO user_roles (user_role_id, username, role) VALUES (1, 'admin', 'ROLE_USER');
+DROP TABLE users;
+CREATE TABLE users (username varchar(45) NOT NULL, password varchar(45) NOT NULL, enabled tinyint DEFAULT '1' NOT NULL, PRIMARY KEY (username)) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO users (username, password, enabled) VALUES ('william', 'william', 1);
+INSERT INTO users (username, password, enabled) VALUES ('admin', 'admin', 1);
+ALTER TABLE user_roles ADD CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users (username);
